@@ -30,9 +30,30 @@ public class SearchByTitle extends HttpServlet {
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
+		// Search using Google Books API for title
+		String author = request.getParameter("title");
+        String encodedAuthor = URLEncoder.encode(author, "UTF-8");
+        URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=intitle:" + encodedAuthor);
+
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        connection.setRequestMethod("GET");
+        connection.setRequestProperty("Accept", "application/json");
+
+        if (connection.getResponseCode() != 200) {
+            throw new RuntimeException("Failed : HTTP error code : " + connection.getResponseCode());
+        }
+        
+        BufferedReader br = new BufferedReader(new InputStreamReader((connection.getInputStream())));
+        
+        // Write the response
+        response.setContentType("application/json");
+        String output;
+        while ((output = br.readLine()) != null) {
+            response.getWriter().write(output);
+        }
+
+        connection.disconnect();
 	}
 
 	/**
