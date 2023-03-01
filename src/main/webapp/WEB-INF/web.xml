@@ -39,4 +39,14 @@
     <servlet-name>SearchByAuthor</servlet-name>
     <url-pattern>/SearchByAuthor</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchByISBN</display-name>
+    <servlet-name>SearchByISBN</servlet-name>
+    <servlet-class>api.SearchByISBN</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchByISBN</servlet-name>
+    <url-pattern>/SearchByISBN</url-pattern>
+  </servlet-mapping>
 </web-app>

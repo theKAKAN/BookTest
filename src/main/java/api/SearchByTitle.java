@@ -32,8 +32,8 @@ public class SearchByTitle extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {		
 		// Search using Google Books API for title
-		String author = request.getParameter("title");
-        String encodedAuthor = URLEncoder.encode(author, "UTF-8");
+		String title = request.getParameter("title");
+        String encodedAuthor = URLEncoder.encode(title, "UTF-8");
         URL url = new URL("https://www.googleapis.com/books/v1/volumes?q=intitle:" + encodedAuthor);
 
         HttpURLConnection connection = (HttpURLConnection) url.openConnection();
