@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Search Books</title>
+	<script>
+		function searchBooks() {
+			var searchParam = document.getElementById("search-param").value;
+			var searchType = document.getElementById("search-type").value;
+			var url = "http://localhost:3000/BookTest/";
+
+			if (searchType === "title") {
+				url += "SearchByTitle?title=" + encodeURIComponent(searchParam);
+			} else if (searchType === "author") {
+				url += "SearchByAuthor?author=" + encodeURIComponent(searchParam);
+			} else if (searchType === "isbn") {
+				url += "SearchByISBN?isbn=" + encodeURIComponent(searchParam);
+			} else {
+				alert("Invalid search type");
+				return;
+			}
+
+			var xhr = new XMLHttpRequest();
+			xhr.open("GET", url, true);
+			xhr.setRequestHeader("Content-Type", "application/json");
+			xhr.onreadystatechange = function() {
+				if (this.readyState === 4 && this.status === 200) {
+					var response = JSON.parse(xhr.responseText);
+					console.log(response);
+					// Do something with the response data
+					document.getElementById("result").innerHTML = xhr.responseText;
+				}
+			};
+			xhr.send();
+		}
+	</script>
+</head>
+<body>
+	<h1>Search Books</h1>
+	<form>
+		<label for="search-param">Search Parameter:</label>
+		<input type="text" id="search-param" name="search-param"><br>
+
+		<label for="search-type">Search Type:</label>
+		<select id="search-type" name="search-type">
+			<option value="author">Author</option>
+			<option value="title">Title</option>
+			<option value="isbn">ISBN</option>
+		</select><br>
+
+		<input type="button" value="Search" onclick="searchBooks()">
+	</form>
+	<div id="result"></div>
+</body>
+</html>
