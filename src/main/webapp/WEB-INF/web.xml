@@ -29,4 +29,14 @@
     <servlet-name>SearchByTitle</servlet-name>
     <url-pattern>/SearchByTitle</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SearchByAuthor</display-name>
+    <servlet-name>SearchByAuthor</servlet-name>
+    <servlet-class>api.SearchByAuthor</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchByAuthor</servlet-name>
+    <url-pattern>/SearchByAuthor</url-pattern>
+  </servlet-mapping>
 </web-app>
